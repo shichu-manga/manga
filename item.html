@@ -20,65 +20,49 @@
 
     <div class="max-w-6xl mx-auto px-4 py-8">
         <div class="flex flex-col md:flex-row gap-8">
-            
             <main class="flex-grow">
                 <article class="bg-white rounded-3xl overflow-hidden shadow-sm border border-pink-100">
-                    <img src="https://via.placeholder.com/600x800/ffb6c1/ffffff?text=MANGA+IMAGE" alt="作品画像" class="w-full">
-                    
+                    <img src="https://via.placeholder.com/600x800/ffb6c1/ffffff?text=MANGA+IMAGE" class="w-full">
                     <div class="p-6 md:p-10">
                         <div class="mb-6">
                             <p class="text-sm text-pink-400 font-bold mb-1">著者：山田太郎 先生</p>
-                            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 leading-tight">ここに作品のタイトルが入ります</h2>
+                            <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 leading-tight">作品タイトルが入ります</h2>
                         </div>
-
                         <div class="flex flex-wrap gap-2 mb-8">
                             <a href="index.html?tag=純愛" class="bg-pink-50 text-pink-500 text-xs px-3 py-1.5 rounded-full border border-pink-100 hover:bg-pink-500 hover:text-white transition">#純愛</a>
-                            <a href="index.html?tag=巨乳" class="bg-pink-50 text-pink-500 text-xs px-3 py-1.5 rounded-full border border-pink-100 hover:bg-pink-500 hover:text-white transition">#巨乳</a>
-                            <a href="index.html?tag=学生" class="bg-pink-50 text-pink-500 text-xs px-3 py-1.5 rounded-full border border-pink-100 hover:bg-pink-500 hover:text-white transition">#学生</a>
                         </div>
-
                         <div class="space-y-6 text-gray-600 leading-relaxed mb-10 pb-10 border-b border-pink-50">
-                            <h3 class="text-lg font-bold text-gray-800 flex items-center">
-                                <span class="w-1.5 h-6 bg-pink-400 rounded-full mr-3"></span>作品紹介
-                            </h3>
-                            <p>ここに作品のあらすじや、推しポイントを詳しく書きます。</p>
+                            <h3 class="text-lg font-bold text-gray-800 flex items-center"><span class="w-1.5 h-6 bg-pink-400 rounded-full mr-3"></span>作品紹介</h3>
+                            <p>作品のあらすじや紹介文をここに記載します。</p>
                         </div>
-
-                        <a href="https://www.dlsite.com/" target="_blank" class="btn-gradient block w-full text-white text-center py-5 rounded-2xl font-extrabold text-xl shadow-lg transition">
-                            ＼ この作品を今すぐチェック ／
-                        </a>
-                        <p class="text-[10px] text-gray-400 text-center mt-4">※外部販売サイトへ移動します</p>
+                        <a href="https://www.dlsite.com/" target="_blank" class="btn-gradient block w-full text-white text-center py-5 rounded-2xl font-extrabold text-xl shadow-lg transition">＼ この作品を今すぐチェック ／</a>
                     </div>
                 </article>
-
-                <div class="mt-8 text-center">
-                    <a href="index.html" class="text-pink-400 font-bold hover:text-pink-600 transition">← トップページに戻る</a>
-                </div>
+                <div class="mt-8 text-center"><a href="index.html" class="text-pink-400 font-bold hover:text-pink-600 transition">← トップページに戻る</a></div>
             </main>
 
             <aside class="w-full md:w-80 shrink-0">
                 <div class="space-y-8 sticky top-24">
-                    
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
                         <h2 class="text-lg font-bold text-gray-700 mb-5 pb-2 border-b-2 border-pink-200 italic">🏆 今週の人気TOP5</h2>
-                        <div id="ranking-list" class="space-y-4">
-                            </div>
+                        <div id="ranking-list" class="space-y-4 mb-8"></div>
+                        
+                        <div class="pt-4 border-t border-dashed border-pink-100">
+                            <h3 class="text-[11px] font-bold text-pink-400 mb-3 flex items-center">
+                                <span class="mr-1">🌙</span> 月間人気ランキング
+                            </h3>
+                            <div id="monthly-ranking-list" class="space-y-2"></div>
+                        </div>
                     </div>
 
                     <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
                         <h2 class="text-lg font-bold text-gray-700 mb-4 text-sm">🔍 作品を探す</h2>
-                        <div class="mb-6">
-                            <form action="index.html" method="get">
-                                <input type="text" name="tag" placeholder="キーワードで検索..." 
-                                    class="w-full px-4 py-2 rounded-lg border-2 border-pink-100 focus:outline-none focus:border-pink-300 text-sm">
-                            </form>
-                        </div>
-                        
+                        <form action="index.html" method="get">
+                            <input type="text" name="tag" placeholder="キーワード検索..." class="w-full px-4 py-2 rounded-lg border-2 border-pink-100 text-sm mb-6">
+                        </form>
                         <h3 class="text-[10px] font-bold text-pink-400 mb-3 uppercase tracking-wider">Popular Tags</h3>
-                        <div id="tag-cloud" class="flex flex-wrap gap-2">
-                            </div>
+                        <div id="tag-cloud" class="flex flex-wrap gap-2"></div>
                     </div>
-
                 </div>
             </aside>
         </div>
@@ -89,37 +73,18 @@
     </footer>
 
     <script>
-        const popularTags = ["純愛", "寝取られ", "巨乳", "学生", "人妻", "OL", "ツンデレ", "幼馴染", "ファンタジー", "メイド", "コスプレ", "フルカラー", "独占欲", "義妹", "ギャル", "教師", "看護師", "清楚", "ドS", "ドM", "眼鏡", "短髪", "黒髪", "お姉さん", "執着", "純朴", "肉食系", "高身長", "小悪魔", "放課後"];
-        
-        const miniRanking = [
-            { title: "純真な彼女との日常", img: "https://via.placeholder.com/300x420/ffb6c1?text=A", link: "item.html" },
-            { title: "隣の奥様は誘惑する", img: "https://via.placeholder.com/300x420/ffc0cb?text=B", link: "item.html" },
-            { title: "魔法の放課後", img: "https://via.placeholder.com/300x420/ff69b4?text=C", link: "item.html" }
-        ];
+        const tags = ["純愛", "寝取られ", "巨乳", "学生", "人妻", "OL", "ツンデレ", "幼馴染", "ファンタジー", "メイド", "コスプレ", "フルカラー", "独占欲", "義妹", "ギャル", "教師", "看護師", "清楚", "ドS", "ドM", "眼鏡", "短髪", "黒髪", "お姉さん", "執着", "純朴", "肉食系", "高身長", "小悪魔", "放課後"];
+        const weekly = [{ title: "純真な彼女との日常", img: "https://via.placeholder.com/300x420/ffb6c1?text=A" }, { title: "隣の奥様は誘惑する", img: "https://via.placeholder.com/300x420/ffc0cb?text=B" }, { title: "魔法の放課後", img: "https://via.placeholder.com/300x420/ff69b4?text=C" }];
+        const monthly = [{ title: "ずっと人気の定番名作1" }, { title: "先月から話題のタイトル2" }, { title: "不動のトップセラー作品3" }];
 
-        function renderSidebar() {
-            // タグの生成
+        window.onload = () => {
             const cloud = document.getElementById('tag-cloud');
-            popularTags.forEach(t => {
-                cloud.innerHTML += `<a href="index.html?tag=${t}" class="bg-white border border-pink-100 px-2 py-1 rounded text-[10px] hover:bg-pink-500 hover:text-white transition">#${t}</a>`;
-            });
-
-            // ランキングの生成
+            tags.forEach(t => { cloud.innerHTML += `<a href="index.html?tag=${t}" class="bg-white border border-pink-100 px-2 py-1 rounded text-[10px] hover:bg-pink-500 hover:text-white transition">#${t}</a>`; });
             const rankEl = document.getElementById('ranking-list');
-            miniRanking.forEach((m, i) => {
-                const n = i + 1;
-                rankEl.innerHTML += `
-                    <a href="${m.link}" class="flex items-center gap-3 group">
-                        <div class="relative w-10 h-12 shrink-0">
-                            <img src="${m.img}" class="w-full h-full object-cover rounded shadow-sm">
-                            <span class="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-white shadow text-[10px] flex items-center justify-center font-bold ${n<=3?'rank-'+n:'text-gray-400'}">${n}</span>
-                        </div>
-                        <p class="text-[10px] font-bold group-hover:text-pink-500 line-clamp-2 leading-tight">${m.title}</p>
-                    </a>`;
-            });
-        }
-
-        window.onload = renderSidebar;
+            weekly.forEach((m, i) => { const n = i + 1; rankEl.innerHTML += `<a href="item.html" class="flex items-center gap-3"><div class="relative w-10 h-12 shrink-0"><img src="${m.img}" class="w-full h-full object-cover rounded shadow-sm"><span class="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-white shadow text-[10px] flex items-center justify-center font-bold ${n<=3?'rank-'+n:'text-gray-400'}">${n}</span></div><p class="text-[10px] font-bold leading-tight">${m.title}</p></a>`; });
+            const monEl = document.getElementById('monthly-ranking-list');
+            monthly.forEach((m, i) => { monEl.innerHTML += `<a href="item.html" class="flex items-center gap-2 py-0.5"><span class="text-[10px] font-mono text-pink-300">0${i+1}</span><p class="text-[10px] text-gray-500 truncate">${m.title}</p></a>`; });
+        };
     </script>
 </body>
 </html>
