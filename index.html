@@ -43,13 +43,20 @@
                     <div class="space-y-8 sticky top-24">
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
                             <h2 class="text-lg font-bold text-gray-700 mb-5 pb-2 border-b-2 border-pink-200 italic">🏆 今週の人気TOP5</h2>
-                            <div id="ranking-list" class="space-y-4"></div>
+                            <div id="ranking-list" class="space-y-4 mb-8"></div>
+
+                            <div class="pt-4 border-t border-dashed border-pink-100">
+                                <h3 class="text-[11px] font-bold text-pink-400 mb-3 flex items-center">
+                                    <span class="mr-1">🌙</span> 月間人気ランキング
+                                </h3>
+                                <div id="monthly-ranking-list" class="space-y-2"></div>
+                            </div>
                         </div>
 
                         <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
                             <h2 class="text-lg font-bold text-gray-700 mb-4 text-sm">🔍 作品を探す</h2>
                             <div class="mb-6">
-                                <input type="text" id="search-input" oninput="searchManga()" placeholder="キーワードで検索..." 
+                                <input type="text" id="search-input" oninput="searchManga()" placeholder="キーワード検索..." 
                                     class="w-full px-4 py-2 rounded-lg border-2 border-pink-100 focus:outline-none focus:border-pink-300 text-sm">
                             </div>
                             <h3 class="text-[10px] font-bold text-pink-400 mb-3 uppercase tracking-wider">Popular Tags</h3>
@@ -70,6 +77,12 @@
             { title: "純真な彼女との日常", author: "山田太郎", img: "https://via.placeholder.com/300x420/ffb6c1?text=A", link: "item.html", tags: ["純愛", "学生", "初恋"] },
             { title: "隣の奥様は誘惑する", author: "佐藤花子", img: "https://via.placeholder.com/300x420/ffc0cb?text=B", link: "item.html", tags: ["寝取られ", "人妻", "巨乳"] },
             { title: "魔法の放課後", author: "田中ぷりん", img: "https://via.placeholder.com/300x420/ff69b4?text=C", link: "item.html", tags: ["ファンタジー", "巨乳", "魔法"] }
+        ];
+
+        const monthlyRanking = [
+            { title: "ずっと人気の定番名作1", link: "item.html" },
+            { title: "先月から話題のタイトル2", link: "item.html" },
+            { title: "不動のトップセラー作品3", link: "item.html" }
         ];
 
         const popularTags = ["純愛", "寝取られ", "巨乳", "学生", "人妻", "OL", "ツンデレ", "幼馴染", "ファンタジー", "メイド", "コスプレ", "フルカラー", "独占欲", "義妹", "ギャル", "教師", "看護師", "清楚", "ドS", "ドM", "眼鏡", "短髪", "黒髪", "お姉さん", "執着", "純朴", "肉食系", "高身長", "小悪魔", "放課後"];
@@ -108,6 +121,11 @@
             mangaList.slice(0, 5).forEach((m, i) => {
                 const n = i + 1;
                 rankEl.innerHTML += `<a href="${m.link}" class="flex items-center gap-3 group"><div class="relative w-10 h-12 shrink-0"><img src="${m.img}" class="w-full h-full object-cover rounded shadow-sm"><span class="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-white shadow text-[10px] flex items-center justify-center font-bold ${n<=3?'rank-'+n:'text-gray-400'}">${n}</span></div><p class="text-[10px] font-bold group-hover:text-pink-500 line-clamp-2 leading-tight">${m.title}</p></a>`;
+            });
+
+            const monthlyEl = document.getElementById('monthly-ranking-list');
+            monthlyRanking.forEach((m, i) => {
+                monthlyEl.innerHTML += `<a href="${m.link}" class="flex items-center gap-2 group py-0.5"><span class="text-[10px] font-mono text-pink-300">0${i+1}</span><p class="text-[10px] text-gray-500 group-hover:text-pink-500 truncate transition">${m.title}</p></a>`;
             });
         }
 
