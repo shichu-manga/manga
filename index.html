@@ -60,10 +60,19 @@
                         </div>
 
                         <div class="bg-white rounded-3xl p-6 shadow-sm border border-pink-100">
-                            <h2 class="text-[10px] font-bold text-gray-400 mb-3 uppercase tracking-wider italic">Search & Tags</h2>
-                            <input type="text" id="search-input" oninput="searchManga()" placeholder="キーワード検索..." 
-                                class="w-full px-4 py-2 rounded-xl border-2 border-pink-50 focus:outline-none focus:border-pink-200 text-sm mb-4 transition">
-                            <div id="tag-cloud" class="flex flex-wrap gap-1.5"></div>
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="text-pink-400">🔍</span>
+                                <h2 class="text-[11px] font-bold text-gray-500 uppercase tracking-wider italic">作品を探す</h2>
+                            </div>
+                            
+                            <div class="relative mb-6">
+                                <input type="text" id="search-input" oninput="searchManga()" 
+                                    placeholder="タイトル、著者、タグで検索..." 
+                                    class="block w-full px-4 py-3 bg-gray-50 border border-transparent focus:border-pink-200 focus:bg-white focus:outline-none rounded-2xl text-xs transition-all duration-300 shadow-inner">
+                            </div>
+
+                            <div id="tag-cloud" class="flex flex-wrap gap-1.5">
+                                </div>
                         </div>
 
                     </div>
@@ -78,11 +87,11 @@
 
     <script>
         const mangaList = [
-            { id: 1, title: "純真な彼女との日常", author: "山田太郎", img: "https://via.placeholder.com/300x420/ffb6c1?text=A", link: "item.html", tags: ["純愛", "学生"] },
-            { id: 2, title: "隣の奥様は誘惑する", author: "佐藤花子", img: "https://via.placeholder.com/300x420/ffc0cb?text=B", link: "item.html", tags: ["寝取られ", "人妻"] },
-            { id: 3, title: "放課後の魔法実習", author: "田中ぷりん", img: "https://via.placeholder.com/300x420/ff69b4?text=C", link: "item.html", tags: ["ファンタジー", "教師"] },
-            { id: 4, title: "義妹がギャルになった日", author: "鈴木イチロー", img: "https://via.placeholder.com/300x420/fce4ec?text=D", link: "item.html", tags: ["ギャル", "義姉妹"] },
-            { id: 5, title: "清楚な生徒会長の秘密", author: "高橋次郎", img: "https://via.placeholder.com/300x420/f8bbd0?text=E", link: "item.html", tags: ["清楚", "学生"] }
+            { id: 1, title: "純真な彼女との日常", author: "山田太郎", img: "https://via.placeholder.com/300x420/ffb6c1?text=A", link: "item.html", tags: ["純愛", "学生", "初体験"] },
+            { id: 2, title: "隣の奥様は誘惑する", author: "佐藤花子", img: "https://via.placeholder.com/300x420/ffc0cb?text=B", link: "item.html", tags: ["寝取られ", "人妻", "不倫"] },
+            { id: 3, title: "放課後の魔法実習", author: "田中ぷりん", img: "https://via.placeholder.com/300x420/ff69b4?text=C", link: "item.html", tags: ["ファンタジー", "教師", "魔法"] },
+            { id: 4, title: "義妹がギャルになった日", author: "鈴木イチロー", img: "https://via.placeholder.com/300x420/fce4ec?text=D", link: "item.html", tags: ["ギャル", "義姉妹", "同居"] },
+            { id: 5, title: "清楚な生徒会長の秘密", author: "高橋次郎", img: "https://via.placeholder.com/300x420/f8bbd0?text=E", link: "item.html", tags: ["清楚", "学生", "裏の顔"] }
         ];
 
         function confirmAge() {
@@ -100,14 +109,18 @@
                     <div class="p-3">
                         <p class="text-[9px] text-gray-400 font-medium">${m.author}</p>
                         <h3 class="font-bold text-xs line-clamp-1 my-1">${m.title}</h3>
-                        <div class="flex flex-wrap gap-1 mt-1">${m.tags.map(t => `<span class="text-[8px] bg-pink-50 text-pink-400 px-1.5 py-0.5 rounded">#${t}</span>`).join('')}</div>
+                        <div class="flex flex-wrap gap-1 mt-1">${m.tags.slice(0,2).map(t => `<span class="text-[8px] bg-pink-50 text-pink-400 px-1.5 py-0.5 rounded">#${t}</span>`).join('')}</div>
                     </div>
                 </div>`).join('');
         }
 
         function searchManga() {
             const val = document.getElementById('search-input').value.toLowerCase();
-            const filtered = mangaList.filter(m => m.title.includes(val) || m.author.includes(val));
+            const filtered = mangaList.filter(m => 
+                m.title.includes(val) || 
+                m.author.includes(val) || 
+                m.tags.some(t => t.includes(val))
+            );
             displayManga(filtered);
         }
 
@@ -132,7 +145,7 @@
                     </a>`;
             });
 
-            // ② 月間人気ランキング (画像付き)
+            // ② 月間人気ランキング
             const monthlyEl = document.getElementById('monthly-ranking');
             [...mangaList].reverse().forEach((m, i) => {
                 const n = i + 1;
@@ -149,10 +162,14 @@
                     </a>`;
             });
 
-            // ③ タグ
-            const tags = ["すべて", "純愛", "寝取られ", "人妻", "学生", "ギャル", "ファンタジー"];
+            // ③ タグ (数を増やしました)
+            const tags = [
+                "すべて", "純愛", "寝取られ", "人妻", "学生", "ギャル", 
+                "ファンタジー", "教師", "義姉妹", "清楚", "巨乳", 
+                "幼馴染", "メイド", "OL", "ツンデレ", "ハーレム"
+            ];
             document.getElementById('tag-cloud').innerHTML = tags.map(t => 
-                `<button onclick="filterByTag('${t}')" class="bg-white border border-pink-100 px-2 py-0.5 rounded-lg text-[9px] hover:bg-pink-500 hover:text-white transition">#${t}</button>`
+                `<button onclick="filterByTag('${t}')" class="bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg text-[9px] text-gray-500 hover:bg-pink-500 hover:text-white hover:border-pink-500 transition-all duration-200">#${t}</button>`
             ).join('');
 
             displayManga(mangaList);
