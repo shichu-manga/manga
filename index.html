@@ -3,153 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>秘密の漫画棚 ♡ ShiChu4</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>おすすめのエロ漫画 - 厳選セレクション</title>
     <style>
-        body { background-color: #fff0f5; color: #4a4a4a; font-family: sans-serif; }
-        .manga-card:hover { transform: translateY(-3px); transition: 0.3s; }
-        .rank-1 { color: #ffd700; } .rank-2 { color: #c0c0c0; } .rank-3 { color: #cd7f32; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .fade-in { animation: fadeIn 0.5s ease-in-out; }
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #333;
+        }
+        header {
+            background-color: #ff4757;
+            color: white;
+            width: 100%;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .container {
+            width: 90%;
+            max-width: 500px;
+            margin-top: 30px;
+        }
+        .intro {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 5px solid #ff4757;
+        }
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .card:active {
+            transform: scale(0.98);
+        }
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #2f3542;
+        }
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff4757, #ff6b81);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(255, 71, 87, 0.3);
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: #a4b0be;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
-<body class="antialiased">
+<body>
 
-    <div id="age-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm">
-        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-sm w-[90%] border-4 border-pink-200 text-center">
-            <h2 class="text-2xl font-bold mb-4 text-pink-500">年齢確認</h2>
-            <p class="text-sm text-gray-600 mb-6">あなたは18歳以上ですか？</p>
-            <div class="flex flex-col gap-3">
-                <button onclick="confirmAge()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 rounded-full shadow-md transition">はい、18歳以上です</button>
-                <button onclick="history.back()" class="bg-gray-200 py-3 rounded-full text-gray-500 transition">いいえ</button>
-            </div>
-        </div>
+<header>
+    <h1>おすすめのエロ漫画</h1>
+</header>
+
+<div class="container">
+    <div class="intro">
+        <b>【厳選】管理人がガチで選んだ名作まとめ</b><br>
+        今、SNSで話題の作品をピックアップしました。
     </div>
 
-    <div id="main-content" class="hidden">
-        <header class="py-4 border-b border-pink-200 text-center sticky top-0 bg-[#fff0f5] bg-opacity-80 backdrop-blur-md z-40">
-            <h1 class="text-lg font-bold text-pink-600 font-serif tracking-widest cursor-pointer" onclick="location.href='index.html'">♡ SECRET SELECTION ♡</h1>
-        </header>
-
-        <div class="max-w-6xl mx-auto px-4 py-8">
-            <div class="flex flex-col md:flex-row gap-8">
-                
-                <main class="flex-grow">
-                    <h2 id="list-title" class="text-xl font-bold text-pink-500 mb-6 flex items-center px-2">✨ おすすめ作品</h2>
-                    <div id="manga-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-                        </div>
-                </main>
-
-                <aside class="w-full md:w-80 shrink-0">
-                    <div class="space-y-8 sticky top-24">
-                        
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
-                            <h2 class="text-lg font-bold text-gray-700 mb-5 pb-2 border-b-2 border-pink-200 italic">🏆 Popular Ranking</h2>
-                            <div id="ranking-list" class="space-y-4">
-                                </div>
-                        </div>
-
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
-                            <h2 class="text-lg font-bold text-gray-700 mb-4 flex items-center text-sm">🔍 作品を探す</h2>
-                            <div class="mb-6">
-                                <input type="text" id="search-input" oninput="searchManga()" placeholder="作品名・作者・タグ..." 
-                                    class="w-full px-4 py-2 rounded-lg border-2 border-pink-100 focus:outline-none focus:border-pink-300 text-sm">
-                            </div>
-                            
-                            <h3 class="text-[10px] font-bold text-pink-400 mb-3 uppercase tracking-wider">Popular Tags (30)</h3>
-                            <div id="tag-cloud" class="flex flex-wrap gap-2">
-                                </div>
-                        </div>
-
-                    </div>
-                </aside>
-            </div>
-        </div>
-
-        <footer class="py-10 text-center text-gray-400 text-xs border-t border-pink-100 mt-12 bg-white">
-            <p>© 2026 ShiChu4.</p>
-        </footer>
+    <div class="card">
+        <h2>まずはこの作品から！</h2>
+        <p>圧倒的な画力とストーリーで話題沸騰中。</p>
+        <a href="item.html" class="btn">作品レビューを見る</a>
     </div>
+</div>
 
-    <script>
-        // 作品データ
-        const mangaList = [
-            { title: "純真な彼女との日常", author: "山田太郎", img: "https://via.placeholder.com/300x420/ffb6c1?text=A", link: "item.html", tags: ["純愛", "学生", "初恋"] },
-            { title: "隣の奥様は誘惑する", author: "佐藤花子", img: "https://via.placeholder.com/300x420/ffc0cb?text=B", link: "item.html", tags: ["寝取られ", "人妻", "巨乳"] },
-            { title: "魔法の放課後", author: "田中ぷりん", img: "https://via.placeholder.com/300x420/ff69b4?text=C", link: "item.html", tags: ["ファンタジー", "巨乳", "魔法"] }
-        ];
+<footer>
+    &copy; 2026 おすすめのエロ漫画セレクション
+</footer>
 
-        // 30個の人気タグ
-        const popularTags = ["純愛", "寝取られ", "巨乳", "学生", "人妻", "OL", "ツンデレ", "幼馴染", "ファンタジー", "メイド", "コスプレ", "フルカラー", "独占欲", "義妹", "ギャル", "教師", "看護師", "清楚", "ドS", "ドM", "眼鏡", "短髪", "黒髪", "お姉さん", "執着", "純朴", "肉食系", "高身長", "小悪魔", "放課後"];
-
-        function displayManga(filterList) {
-            const grid = document.getElementById('manga-grid');
-            grid.innerHTML = filterList.length ? "" : `<p class="col-span-full text-center py-10 text-gray-400">見つかりませんでした...</p>`;
-            filterList.forEach(m => {
-                const tagsHtml = m.tags.map(t => `<span onclick="event.preventDefault(); filterByTag('${t}')" class="text-[9px] bg-pink-50 text-pink-400 px-1.5 py-0.5 rounded mr-1 hover:bg-pink-500 hover:text-white transition cursor-pointer">#${t}</span>`).join('');
-                grid.innerHTML += `
-                    <div class="manga-card bg-white rounded-xl overflow-hidden shadow-sm border border-pink-50 fade-in">
-                        <a href="${m.link}"><img src="${m.img}" class="w-full aspect-[3/4] object-cover"></a>
-                        <div class="p-3">
-                            <p class="text-[9px] text-gray-400 font-medium">著者: ${m.author}</p>
-                            <h3 class="font-bold text-xs line-clamp-1 my-1">${m.title}</h3>
-                            <div class="flex flex-wrap gap-y-1">${tagsHtml}</div>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function filterByTag(tag) {
-            const filtered = tag === 'すべて' ? mangaList : mangaList.filter(m => m.tags.includes(tag));
-            document.getElementById('list-title').innerHTML = tag === 'すべて' ? "✨ おすすめ作品" : `✨ #${tag} の作品一覧`;
-            displayManga(filtered);
-            document.getElementById('search-input').value = tag === 'すべて' ? "" : tag;
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
-
-        function searchManga() {
-            const val = document.getElementById('search-input').value.toLowerCase();
-            const filtered = mangaList.filter(m => m.title.toLowerCase().includes(val) || m.author.toLowerCase().includes(val) || m.tags.some(t => t.toLowerCase().includes(val)));
-            displayManga(filtered);
-        }
-
-        function renderSidebar() {
-            const cloud = document.getElementById('tag-cloud');
-            cloud.innerHTML = `<button onclick="filterByTag('すべて')" class="bg-white border border-pink-100 px-2 py-1 rounded text-[10px] hover:bg-pink-500 hover:text-white transition">#すべて</button>`;
-            popularTags.forEach(t => {
-                cloud.innerHTML += `<button onclick="filterByTag('${t}')" class="bg-white border border-pink-100 px-2 py-1 rounded text-[10px] hover:bg-pink-500 hover:text-white transition">#${t}</button>`;
-            });
-
-            const rankEl = document.getElementById('ranking-list');
-            mangaList.slice(0, 5).forEach((m, i) => {
-                const n = i + 1;
-                rankEl.innerHTML += `
-                    <a href="${m.link}" class="flex items-center gap-3 group">
-                        <div class="relative w-10 h-12 shrink-0">
-                            <img src="${m.img}" class="w-full h-full object-cover rounded shadow-sm">
-                            <span class="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-white shadow text-[10px] flex items-center justify-center font-bold ${n<=3?'rank-'+n:'text-gray-400'}">${n}</span>
-                        </div>
-                        <p class="text-[10px] font-bold group-hover:text-pink-500 line-clamp-2 leading-tight">${m.title}</p>
-                    </a>`;
-            });
-        }
-
-        function confirmAge() {
-            localStorage.setItem('age-verified-pink', 'true');
-            document.getElementById('age-gate').classList.add('hidden');
-            document.getElementById('main-content').classList.remove('hidden');
-        }
-
-        window.onload = () => {
-            if (localStorage.getItem('age-verified-pink') === 'true') {
-                document.getElementById('age-gate').classList.add('hidden');
-                document.getElementById('main-content').classList.remove('hidden');
-            }
-            renderSidebar();
-            const params = new URLSearchParams(window.location.search);
-            const tagParam = params.get('tag');
-            if(tagParam) filterByTag(tagParam); else displayManga(mangaList);
-        };
-    </script>
 </body>
 </html>
