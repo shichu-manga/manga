@@ -9,7 +9,6 @@
         body { background-color: #fff0f5; color: #4a4a4a; font-family: sans-serif; scroll-behavior: smooth; }
         .manga-card { transition: transform 0.3s ease; }
         .manga-card:hover { transform: translateY(-5px); }
-        /* ランキング順位の色 */
         .rank-1 { color: #ffd700; } 
         .rank-2 { color: #c0c0c0; } 
         .rank-3 { color: #cd7f32; }
@@ -57,8 +56,7 @@
 
                         <div class="bg-white rounded-3xl p-6 shadow-sm border border-pink-100">
                             <h2 class="text-xs font-bold text-pink-400 mb-4 italic">🌙 月間人気ランキング</h2>
-                            <div id="monthly-ranking" class="space-y-3">
-                                </div>
+                            <div id="monthly-ranking" class="space-y-3"></div>
                         </div>
 
                         <div class="bg-white rounded-3xl p-6 shadow-sm border border-pink-100">
@@ -79,7 +77,6 @@
     </div>
 
     <script>
-        // サンプルデータ（実際のデータに合わせて書き換えてください）
         const mangaList = [
             { id: 1, title: "純真な彼女との日常", author: "山田太郎", img: "https://via.placeholder.com/300x420/ffb6c1?text=A", link: "item.html", tags: ["純愛", "学生"] },
             { id: 2, title: "隣の奥様は誘惑する", author: "佐藤花子", img: "https://via.placeholder.com/300x420/ffc0cb?text=B", link: "item.html", tags: ["寝取られ", "人妻"] },
@@ -95,7 +92,6 @@
             initSite();
         }
 
-        // メインの作品一覧表示
         function displayManga(list) {
             const grid = document.getElementById('manga-grid');
             grid.innerHTML = list.map(m => `
@@ -109,21 +105,18 @@
                 </div>`).join('');
         }
 
-        // 検索機能
         function searchManga() {
             const val = document.getElementById('search-input').value.toLowerCase();
             const filtered = mangaList.filter(m => m.title.includes(val) || m.author.includes(val));
             displayManga(filtered);
         }
 
-        // タグフィルター
         function filterByTag(tag) {
             const filtered = tag === 'すべて' ? mangaList : mangaList.filter(m => m.tags.includes(tag));
             displayManga(filtered);
             window.scrollTo({ top: document.getElementById('scroll-anchor').offsetTop - 100, behavior: 'smooth' });
         }
 
-        // サイト初期化
         function initSite() {
             // ① 今週の人気TOP5
             const weeklyEl = document.getElementById('weekly-ranking');
@@ -139,7 +132,7 @@
                     </a>`;
             });
 
-            // ② 月間人気ランキング（🌙マーク ＋ 小さな画像付き）
+            // ② 月間人気ランキング (画像付き)
             const monthlyEl = document.getElementById('monthly-ranking');
             [...mangaList].reverse().forEach((m, i) => {
                 const n = i + 1;
@@ -156,7 +149,7 @@
                     </a>`;
             });
 
-            // ③ タグクラウド
+            // ③ タグ
             const tags = ["すべて", "純愛", "寝取られ", "人妻", "学生", "ギャル", "ファンタジー"];
             document.getElementById('tag-cloud').innerHTML = tags.map(t => 
                 `<button onclick="filterByTag('${t}')" class="bg-white border border-pink-100 px-2 py-0.5 rounded-lg text-[9px] hover:bg-pink-500 hover:text-white transition">#${t}</button>`
