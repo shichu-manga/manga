@@ -15,101 +15,98 @@
 </head>
 <body class="antialiased">
 
-    <div id="main-content">
-        <header class="py-4 border-b border-pink-200 text-center sticky top-0 bg-[#fff0f5] bg-opacity-80 backdrop-blur-md z-40">
-            <h1 class="text-lg font-bold text-pink-600 tracking-widest cursor-pointer" onclick="location.href='index.html'">♡ SECRET SELECTION ♡</h1>
-        </header>
+    <header class="py-4 border-b border-pink-200 text-center sticky top-0 bg-[#fff0f5] bg-opacity-80 backdrop-blur-md z-40">
+        <h1 class="text-lg font-bold text-pink-600 tracking-widest cursor-pointer" onclick="location.href='index.html'">♡ SECRET SELECTION ♡</h1>
+    </header>
 
-        <div class="max-w-6xl mx-auto px-4 py-10 fade-in">
-            <div class="flex flex-col lg:flex-row gap-12">
+    <div class="max-w-6xl mx-auto px-4 py-10 fade-in">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <main class="flex-grow">
+                <article class="bg-white rounded-[40px] shadow-sm border border-pink-100 p-8 md:p-12">
+                    <div class="flex flex-col md:flex-row gap-10">
+                        <div class="md:w-1/2">
+                            <img id="main-image" src="" class="w-full rounded-3xl shadow-lg aspect-[3/4] object-cover">
+                        </div>
+                        <div class="md:w-1/2">
+                            <div id="tag-container" class="flex flex-wrap gap-2 mb-4"></div>
+                            <h2 id="work-title" class="text-2xl font-black text-gray-800 mb-6"></h2>
+                            
+                            <div class="border-t border-pink-50 pt-6">
+                                <h3 class="text-xs font-bold text-pink-400 mb-4 uppercase">Editor's Review</h3>
+                                <div id="work-description" class="text-gray-600 text-sm leading-loose whitespace-pre-wrap"></div>
+                            </div>
+                            
+                            <a id="buy-link" href="#" target="_blank" class="btn-gradient block w-full text-white text-center py-5 rounded-2xl font-black shadow-lg hover:scale-105 transition mt-10">
+                                FANZAで作品をチェックする ⚡
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </main>
+
+            <aside class="w-full lg:w-80 shrink-0 space-y-8">
                 
-                <main class="flex-grow">
-                    <article id="article-container" class="bg-white rounded-[40px] shadow-sm border border-pink-100 p-8 md:p-12">
-                        <div class="flex flex-col md:flex-row gap-10">
-                            <div class="md:w-1/2">
-                                <img id="main-image" src="" class="w-full rounded-3xl shadow-lg aspect-[3/4] object-cover">
-                            </div>
-                            <div class="md:w-1/2">
-                                <div id="tag-container" class="flex flex-wrap gap-2 mb-4"></div>
-                                <h2 id="work-title" class="text-2xl font-black text-gray-800 mb-6"></h2>
-                                
-                                <div class="border-t border-pink-50 pt-6">
-                                    <h3 class="text-xs font-bold text-pink-400 mb-4 uppercase">Editor's Review</h3>
-                                    <div id="work-description" class="text-gray-600 text-sm leading-loose whitespace-pre-wrap"></div>
-                                </div>
-                                
-                                <a id="buy-link" href="#" target="_blank" class="btn-gradient block w-full text-white text-center py-5 rounded-2xl font-black shadow-lg hover:scale-105 transition mt-10">
-                                    FANZAで作品をチェックする ⚡
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-                    <div id="error-message" class="hidden text-center py-20">
-                        <p class="text-gray-400">作品が見つかりませんでした。</p>
-                        <a href="index.html" class="text-pink-500 underline mt-4 block">トップへ戻る</a>
-                    </div>
-                </main>
+                <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
+                    <h2 class="text-[11px] font-bold text-gray-400 mb-6 tracking-widest uppercase">人気ランキング</h2>
+                    <div id="side-ranking" class="space-y-5"></div>
+                </div>
 
-                <aside class="w-full lg:w-80 shrink-0 space-y-8">
-                    <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
-                        <h2 class="text-[11px] font-bold text-gray-400 mb-6 tracking-widest uppercase">人気ランキング</h2>
-                        <div id="side-ranking" class="space-y-5"></div>
+                <div class="bg-white rounded-[32px] p-6 shadow-sm border border-pink-50">
+                    <h2 class="text-[11px] font-bold text-gray-400 mb-4 tracking-widest uppercase">作品検索</h2>
+                    <div class="flex gap-2">
+                        <input type="text" id="side-search-input" placeholder="キーワード..." 
+                            class="w-full bg-gray-50 border border-pink-100 rounded-xl px-4 py-2 text-sm focus:outline-none">
+                        <button onclick="executeSearch()" class="bg-pink-500 text-white px-4 py-2 rounded-xl text-xs">検索</button>
                     </div>
+                </div>
 
-                    <div class="bg-white rounded-[32px] p-6 shadow-sm border border-pink-50">
-                        <h2 class="text-[11px] font-bold text-gray-400 mb-4 tracking-widest uppercase">作品検索</h2>
-                        <div class="flex gap-2">
-                            <input type="text" id="side-search-input" placeholder="キーワード..." 
-                                class="w-full bg-gray-50 border border-pink-100 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-200">
-                            <button onclick="executeSearch()" class="bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold">検索</button>
-                        </div>
-                    </div>
+                <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
+                    <h2 class="text-[11px] font-bold text-gray-400 mb-5 tracking-widest uppercase">タグ</h2>
+                    <div id="side-tag-cloud" class="flex flex-wrap gap-2"></div>
+                </div>
 
-                    <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
-                        <h2 class="text-[11px] font-bold text-gray-400 mb-5 tracking-widest uppercase">タグ</h2>
-                        <div id="side-tag-cloud" class="flex flex-wrap gap-2"></div>
-                    </div>
-
-                    <button onclick="location.href='index.html'" class="w-full py-4 border border-pink-200 text-pink-400 rounded-2xl text-xs font-bold hover:bg-pink-50 transition">
-                        ← トップページへ戻る
-                    </button>
-                </aside>
-            </div>
+                <button onclick="location.href='index.html'" class="w-full py-4 border border-pink-200 text-pink-400 rounded-2xl text-xs font-bold hover:bg-pink-50 transition">
+                    ← トップページへ戻る
+                </button>
+            </aside>
         </div>
     </div>
 
     <script>
-        // 作品データ（index.htmlのリストとIDを合わせてください）
+        // 共通データ（本番では別ファイル化を推奨）
         const mangaData = {
             "d_722571": { 
                 title: "隣の綺麗なお姉さん", 
                 tags: ["人妻", "巨乳", "誘惑"], 
                 img: "https://picsum.photos/seed/d722571/600/800",
                 link: "https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=d_722571/",
-                description: `【レビュー】本作は、日常の中に潜む「非日常」を完璧に描き出した一冊です。隣の家に住む、昔から知っている綺麗なお姉さん。そんな身近な存在が、ある日を境に「女」として意識されていく過程が、驚くほど丁寧に描写されています。\n\nまず驚かされるのはその画力。柔らかそうな肌の質感、吐息が聞こえてきそうな唇の描写、そして何よりも「視線」の使い方が抜群に上手いです。罪悪感と欲望の間で揺れる心の機微が、台詞以上に表情や構図で雄弁に語られています。大人の方にこそ手に取っていただきたい、至極のエンターテインメント作品と言えるでしょう。`
+                description: `【レビュー】本作は、日常の中に潜む「非日常」を完璧に描き出した一冊です。隣の家に住む、昔から知っている綺麗なお姉さん。そんな身近な存在が、ある日を境に「女」として意識されていく過程が、驚くほど丁寧に描写されています。\n\nまず驚かされるのはその画力。柔らかそうな肌の質感、吐息が聞こえてきそうな唇の描写、そして何よりも「視線」の使い方が抜群に上手いです。読者は主人公の視点を通して、彼女の妖艶な魅力に少しずつ絡め取られていくような感覚を味わうことができます。心理描写も巧みで、罪悪感と欲望の間で揺れる心の機微が、台詞以上に表情や構図で雄弁に語られています。ストーリーのテンポも良く、飽きさせない展開が続きます。特に中盤からの盛り上がりは圧巻で、積み重ねてきた緊張感が一気に爆発するシーンは、同人作品とは思えないほどの重厚感があります。大人の方にこそ手に取っていただきたい、至極のエンターテインメント作品と言えるでしょう。`
             },
             "d_658585": { 
                 title: "放課後の秘め事", 
                 tags: ["純愛", "学生", "清楚"], 
                 img: "https://picsum.photos/seed/m1/600/800",
                 link: "https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=d_658585/",
-                description: `【レビュー】放課後の静まり返った教室、夕日に照らされた廊下――。本作は、そんなノスタルジックな舞台で繰り広げられる、最高に甘美で少し切ない純愛物語です。メインヒロインは、クラスでも有名な清楚系美少女。しかし、放課後の二人きりの時間だけは、彼女は誰にも見せない特別な表情を見せてくれます。\n\n本作の最大の魅力は、その圧倒的な「透明感」です。繊細なタッチで描かれるキャラクターたちは、まるで生きているかのような瑞々しさを放っています。過激なシーンにおいても、その美意識は失われることがありません。読後に爽やかな余韻を残してくれる名作です。`
+                description: `【レビュー】放課後の静まり返った教室、夕日に照らされた廊下――。本作は、そんなノスタルジックな舞台で繰り広げられる、最高に甘美で少し切ない純愛物語です。メインヒロインは、クラスでも有名な清楚系美少女。しかし、放課後の二人きりの時間だけは、彼女は誰にも見せない特別な表情を見せてくれます。\n\n本作の最大の魅力は、その圧倒的な「透明感」です。繊細なタッチで描かれるキャラクターたちは、まるで生きているかのような瑞々しさを放っています。特に彼女の照れた表情や、恥じらいながらも一歩踏み出してくる仕草のひとつひとつが、読者の胸を強く打ちます。フェティシズムへのこだわりも強く、制服の着こなしや放課後特有の空気感が、非常にフェティッシュかつ美しく表現されています。過激なシーンにおいても、その美意識は失われることがありません。互いの体温を感じ合うような生々しさと、青春の煌めきが同居する唯一無二の読書体験を約束します。単なるエロ作品の枠を超え、読後に爽やかな余韻を残してくれる名作です。`
             }
         };
 
+        // 検索実行（indexへ遷移）
         function executeSearch() {
             const q = document.getElementById('side-search-input').value;
             location.href = `index.html?search=${encodeURIComponent(q)}`;
         }
 
+        // タグクリック（indexへ遷移）
         function goToTag(tag) {
             location.href = `index.html?tag=${encodeURIComponent(tag)}`;
         }
 
         window.onload = () => {
             const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-            const work = mangaData[id] || mangaData["d_722571"]; // IDがない場合は1つ目を表示
+            const id = params.get('id') || "d_722571";
+            const work = mangaData[id];
 
             if (work) {
                 document.getElementById('work-title').innerText = work.title;
@@ -118,14 +115,27 @@
                 document.getElementById('buy-link').href = work.link;
                 const tagContainer = document.getElementById('tag-container');
                 work.tags.forEach(t => {
-                    tagContainer.innerHTML += `<button onclick="goToTag('${t}')" class="bg-pink-50 text-pink-400 px-3 py-1 rounded-full text-[9px] font-bold hover:bg-pink-100 transition">#${t}</button>`; 
+                    tagContainer.innerHTML += `<button onclick="goToTag('${t}')" class="bg-pink-50 text-pink-400 px-3 py-1 rounded-full text-[9px] font-bold">#${t}</button>`; 
                 });
-            } else {
-                document.getElementById('article-container').classList.add('hidden');
-                document.getElementById('error-message').classList.remove('hidden');
             }
 
-            // サイドバーランキング
+            // サイドバーランキング描画
             const sideRank = document.getElementById('side-ranking');
-            Object.keys(mangaData).slice(0, 5).forEach((key, i) => {
+            Object.keys(mangaData).forEach((key, i) => {
                 const m = mangaData[key];
+                sideRank.innerHTML += `
+                    <a href="item.html?id=${key}" class="flex items-center gap-4 group">
+                        <span class="text-sm font-bold ${i<3?'rank-'+(i+1):'text-gray-300'}">0${i+1}</span>
+                        <p class="text-[11px] font-bold group-hover:text-pink-500 truncate">${m.title}</p>
+                    </a>`;
+            });
+
+            // サイドバータグ描画
+            const tags = ["純愛", "人妻", "学生", "清楚", "巨乳", "誘惑"];
+            document.getElementById('side-tag-cloud').innerHTML = tags.map(t => 
+                `<button onclick="goToTag('${t}')" class="bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg text-[9px] text-gray-500 hover:bg-pink-500 hover:text-white transition">#${t}</button>`
+            ).join('');
+        };
+    </script>
+</body>
+</html>
