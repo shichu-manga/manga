@@ -3,129 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品詳細｜ShiChu4</title>
+    <title>秘密の漫画棚 ♡ ShiChu4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #fff0f5; color: #4a4a4a; font-family: sans-serif; }
+        body { background-color: #fff0f5; color: #4a4a4a; font-family: sans-serif; scroll-behavior: smooth; }
+        .manga-card { transition: transform 0.3s ease; }
+        .manga-card:hover { transform: translateY(-5px); }
+        .rank-1 { color: #ffd700; } 
+        .rank-2 { color: #c0c0c0; } 
+        .rank-3 { color: #cd7f32; }
         .btn-gradient { background: linear-gradient(to right, #ec4899, #f43f5e); }
-        .rank-1 { color: #ffd700; } .rank-2 { color: #c0c0c0; } .rank-3 { color: #cd7f32; }
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="antialiased">
 
-    <div id="main-content">
-        <header class="py-4 border-b border-pink-200 text-center sticky top-0 bg-[#fff0f5] bg-opacity-80 backdrop-blur-md z-40">
-            <h1 class="text-lg font-bold text-pink-600 tracking-widest cursor-pointer" onclick="location.href='index.html'">♡ SECRET SELECTION ♡</h1>
+    <div id="age-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-6 text-center">
+        <div class="max-w-md bg-white p-10 rounded-[40px] shadow-2xl">
+            <h2 class="text-3xl font-black text-pink-500 mb-6 italic tracking-tighter">ADULT ONLY</h2>
+            <p class="text-gray-500 text-sm mb-8 leading-relaxed">これより先はアダルトコンテンツを含みます。<br>18歳未満の方の閲覧は固くお断りいたします。</p>
+            <button onclick="verifyAge()" class="btn-gradient text-white px-12 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-transform">18歳以上です</button>
+        </div>
+    </div>
+
+    <div id="main-content" class="hidden">
+        <header class="py-8 border-b border-pink-100 text-center sticky top-0 bg-[#fff0f5] bg-opacity-90 backdrop-blur-md z-40">
+            <h1 class="text-3xl font-black text-pink-600 font-serif tracking-[0.3em] cursor-pointer" onclick="location.reload()">♡ SECRET SELECTION ♡</h1>
+            <p class="text-[10px] text-pink-300 mt-2 tracking-widest">厳選された同人作品をご紹介するレビューサイト</p>
         </header>
 
         <div class="max-w-6xl mx-auto px-4 py-10 fade-in">
-            <div class="flex flex-col lg:flex-row gap-12">
-                
+            <div class="flex flex-col md:flex-row gap-10">
                 <main class="flex-grow">
-                    <article id="article-container" class="bg-white rounded-[40px] shadow-sm border border-pink-100 p-8 md:p-12">
-                        <div class="flex flex-col md:flex-row gap-10">
-                            <div class="md:w-1/2">
-                                <img id="main-image" src="" class="w-full rounded-3xl shadow-lg aspect-[3/4] object-cover">
-                            </div>
-                            <div class="md:w-1/2">
-                                <div id="tag-container" class="flex flex-wrap gap-2 mb-4"></div>
-                                <h2 id="work-title" class="text-2xl font-black text-gray-800 mb-6"></h2>
-                                
-                                <div class="border-t border-pink-50 pt-6">
-                                    <h3 class="text-xs font-bold text-pink-400 mb-4 uppercase">Editor's Review</h3>
-                                    <div id="work-description" class="text-gray-600 text-sm leading-loose whitespace-pre-wrap"></div>
-                                </div>
-                                
-                                <a id="buy-link" href="#" target="_blank" class="btn-gradient block w-full text-white text-center py-5 rounded-2xl font-black shadow-lg hover:scale-105 transition mt-10">
-                                    FANZAで作品をチェックする ⚡
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-                    <div id="error-message" class="hidden text-center py-20">
-                        <p class="text-gray-400">作品が見つかりませんでした。</p>
-                        <a href="index.html" class="text-pink-500 underline mt-4 block">トップへ戻る</a>
-                    </div>
+                    <h2 class="text-xs font-bold text-gray-400 mb-6 tracking-widest uppercase">新着レビュー</h2>
+                    <div id="manga-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-8"></div>
                 </main>
 
-                <aside class="w-full lg:w-80 shrink-0 space-y-8">
+                <aside class="w-full md:w-80 shrink-0 space-y-8">
+                    
                     <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
-                        <h2 class="text-[11px] font-bold text-gray-400 mb-6 tracking-widest uppercase">人気ランキング</h2>
-                        <div id="side-ranking" class="space-y-5"></div>
+                        <h2 class="text-[11px] font-bold text-gray-400 mb-6 tracking-widest">今週の人気ランキング</h2>
+                        <div id="weekly-ranking" class="space-y-5"></div>
+                    </div>
+
+                    <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
+                        <h2 class="text-[11px] font-bold text-pink-300 mb-6 tracking-widest">月間人気ランキング</h2>
+                        <div id="monthly-list" class="space-y-3"></div>
                     </div>
 
                     <div class="bg-white rounded-[32px] p-6 shadow-sm border border-pink-50">
-                        <h2 class="text-[11px] font-bold text-gray-400 mb-4 tracking-widest uppercase">作品検索</h2>
-                        <div class="flex gap-2">
-                            <input type="text" id="side-search-input" placeholder="キーワード..." 
-                                class="w-full bg-gray-50 border border-pink-100 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-pink-200">
-                            <button onclick="executeSearch()" class="bg-pink-500 text-white px-4 py-2 rounded-xl text-xs font-bold">検索</button>
-                        </div>
+                        <h2 class="text-[11px] font-bold text-gray-400 mb-4 tracking-widest">作品検索</h2>
+                        <input type="text" id="search-input" oninput="searchManga()" placeholder="キーワードを入力..." 
+                            class="w-full bg-gray-50 border border-pink-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-200 transition">
                     </div>
 
                     <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
-                        <h2 class="text-[11px] font-bold text-gray-400 mb-5 tracking-widest uppercase">タグ</h2>
-                        <div id="side-tag-cloud" class="flex flex-wrap gap-2"></div>
+                        <h2 class="text-[11px] font-bold text-gray-400 mb-5 tracking-widest">タグで検索</h2>
+                        <div id="tag-cloud" class="flex flex-wrap gap-2"></div>
                     </div>
 
-                    <button onclick="location.href='index.html'" class="w-full py-4 border border-pink-200 text-pink-400 rounded-2xl text-xs font-bold hover:bg-pink-50 transition">
-                        ← トップページへ戻る
-                    </button>
                 </aside>
             </div>
         </div>
     </div>
 
     <script>
-        // 作品データ（index.htmlのリストとIDを合わせてください）
-        const mangaData = {
-            "d_722571": { 
-                title: "隣の綺麗なお姉さん", 
-                tags: ["人妻", "巨乳", "誘惑"], 
-                img: "https://picsum.photos/seed/d722571/600/800",
-                link: "https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=d_722571/",
-                description: `【レビュー】本作は、日常の中に潜む「非日常」を完璧に描き出した一冊です。隣の家に住む、昔から知っている綺麗なお姉さん。そんな身近な存在が、ある日を境に「女」として意識されていく過程が、驚くほど丁寧に描写されています。\n\nまず驚かされるのはその画力。柔らかそうな肌の質感、吐息が聞こえてきそうな唇の描写、そして何よりも「視線」の使い方が抜群に上手いです。罪悪感と欲望の間で揺れる心の機微が、台詞以上に表情や構図で雄弁に語られています。大人の方にこそ手に取っていただきたい、至極のエンターテインメント作品と言えるでしょう。`
-            },
-            "d_658585": { 
-                title: "放課後の秘め事", 
-                tags: ["純愛", "学生", "清楚"], 
-                img: "https://picsum.photos/seed/m1/600/800",
-                link: "https://www.dmm.co.jp/dc/doujin/-/detail/=/cid=d_658585/",
-                description: `【レビュー】放課後の静まり返った教室、夕日に照らされた廊下――。本作は、そんなノスタルジックな舞台で繰り広げられる、最高に甘美で少し切ない純愛物語です。メインヒロインは、クラスでも有名な清楚系美少女。しかし、放課後の二人きりの時間だけは、彼女は誰にも見せない特別な表情を見せてくれます。\n\n本作の最大の魅力は、その圧倒的な「透明感」です。繊細なタッチで描かれるキャラクターたちは、まるで生きているかのような瑞々しさを放っています。過激なシーンにおいても、その美意識は失われることがありません。読後に爽やかな余韻を残してくれる名作です。`
-            }
-        };
+        const mangaList = [
+            { id: "d_722571", title: "隣の綺麗なお姉さん", tags: ["人妻", "巨乳", "誘惑"], img: "https://picsum.photos/seed/d722571/300/400" },
+            { id: "d_658585", title: "放課後の秘め事", tags: ["純愛", "学生", "清楚"], img: "https://picsum.photos/seed/m1/300/400" }
+        ];
 
-        function executeSearch() {
-            const q = document.getElementById('side-search-input').value;
-            location.href = `index.html?search=${encodeURIComponent(q)}`;
+        function verifyAge() {
+            localStorage.setItem('ageVerified', 'true');
+            document.getElementById('age-gate').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            renderAll();
         }
 
-        function goToTag(tag) {
-            location.href = `index.html?tag=${encodeURIComponent(tag)}`;
+        function searchManga() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = mangaList.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.tags.some(t => t.toLowerCase().includes(query))
+            );
+            displayManga(filtered);
+        }
+
+        function filterByTag(tag) {
+            const filtered = tag === "すべて" ? mangaList : mangaList.filter(m => m.tags.includes(tag));
+            displayManga(filtered);
+            document.getElementById('search-input').value = ""; 
+        }
+
+        function displayManga(list) {
+            const grid = document.getElementById('manga-grid');
+            if (list.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">見つかりませんでした</p>`;
+                return;
+            }
+            grid.innerHTML = list.map(m => `
+                <div class="manga-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl cursor-pointer border border-pink-50" onclick="location.href='item.html?id=${m.id}'">
+                    <img src="${m.img}" class="w-full aspect-[3/4] object-cover">
+                    <div class="p-5">
+                        <p class="text-[11px] font-bold text-gray-800 truncate mb-2">${m.title}</p>
+                        <div class="flex gap-2">${m.tags.slice(0,3).map(t => `<span class="text-[9px] text-pink-400">#${t}</span>`).join('')}</div>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderAll() {
+            document.getElementById('weekly-ranking').innerHTML = mangaList.map((m, i) => `
+                <a href="item.html?id=${m.id}" class="flex items-center gap-4 group">
+                    <div class="relative w-12 h-16 shrink-0">
+                        <img src="${m.img}" class="w-full h-full object-cover rounded-xl">
+                        <span class="absolute -top-1 -left-1 w-6 h-6 rounded-full bg-white shadow text-[10px] flex items-center justify-center font-bold ${i<3?'rank-'+(i+1):''}">${i+1}</span>
+                    </div>
+                    <p class="text-[11px] font-bold leading-tight group-hover:text-pink-500 transition line-clamp-2">${m.title}</p>
+                </a>`).join('');
+
+            document.getElementById('monthly-list').innerHTML = mangaList.map((m, i) => `
+                <a href="item.html?id=${m.id}" class="flex items-center gap-3 py-1 group">
+                    <span class="text-[10px] font-mono text-pink-200">0${i+1}</span>
+                    <p class="text-[10px] text-gray-400 group-hover:text-pink-400 truncate">${m.title}</p>
+                </a>`).join('');
+
+            const tags = ["すべて", "純愛", "人妻", "学生", "清楚", "巨乳", "誘惑"];
+            document.getElementById('tag-cloud').innerHTML = tags.map(t => 
+                `<button onclick="filterByTag('${t}')" class="bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg text-[9px] text-gray-500 hover:bg-pink-500 hover:text-white transition-all">#${t}</button>`
+            ).join('');
+
+            displayManga(mangaList);
         }
 
         window.onload = () => {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-            const work = mangaData[id] || mangaData["d_722571"]; // IDがない場合は1つ目を表示
-
-            if (work) {
-                document.getElementById('work-title').innerText = work.title;
-                document.getElementById('main-image').src = work.img;
-                document.getElementById('work-description').innerText = work.description;
-                document.getElementById('buy-link').href = work.link;
-                const tagContainer = document.getElementById('tag-container');
-                work.tags.forEach(t => {
-                    tagContainer.innerHTML += `<button onclick="goToTag('${t}')" class="bg-pink-50 text-pink-400 px-3 py-1 rounded-full text-[9px] font-bold hover:bg-pink-100 transition">#${t}</button>`; 
-                });
-            } else {
-                document.getElementById('article-container').classList.add('hidden');
-                document.getElementById('error-message').classList.remove('hidden');
+            if (localStorage.getItem('ageVerified') === 'true') {
+                document.getElementById('age-gate').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                renderAll();
             }
-
-            // サイドバーランキング
-            const sideRank = document.getElementById('side-ranking');
-            Object.keys(mangaData).slice(0, 5).forEach((key, i) => {
-                const m = mangaData[key];
+        };
+    </script>
+</body>
+</html>
