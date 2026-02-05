@@ -3,157 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>作品詳細｜ShiChu4</title>
+    <title>秘密の漫画棚 ♡ ShiChu4</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #fff0f5; color: #4a4a4a; font-family: sans-serif; }
-        .rank-1 { color: #ffd700; } .rank-2 { color: #c0c0c0; } .rank-3 { color: #cd7f32; }
+        body { background-color: #fff0f5; color: #4a4a4a; font-family: sans-serif; scroll-behavior: smooth; }
+        .manga-card { transition: transform 0.3s ease; }
+        .manga-card:hover { transform: translateY(-5px); }
+        .rank-1 { color: #ffd700; } 
+        .rank-2 { color: #c0c0c0; } 
+        .rank-3 { color: #cd7f32; }
         .btn-gradient { background: linear-gradient(to right, #ec4899, #f43f5e); }
-        .btn-gradient:hover { opacity: 0.9; transform: scale(1.01); transition: 0.2s; }
         .fade-in { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body class="antialiased">
 
+    <div id="age-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-90 p-6 text-center">
+        <div class="max-w-md bg-white p-10 rounded-[40px] shadow-2xl">
+            <h2 class="text-3xl font-black text-pink-500 mb-6 italic tracking-tighter">ADULT ONLY</h2>
+            <p class="text-gray-500 text-sm mb-8 leading-relaxed">これより先はアダルトコンテンツを含みます。<br>18歳未満の方の閲覧は固くお断りいたします。</p>
+            <button onclick="verifyAge()" class="btn-gradient text-white px-12 py-4 rounded-full font-bold shadow-xl hover:scale-105 transition-transform">18歳以上です</button>
+        </div>
+    </div>
+
     <div id="main-content" class="hidden">
-        <header class="py-4 border-b border-pink-200 text-center sticky top-0 bg-[#fff0f5] bg-opacity-80 backdrop-blur-md z-40">
-            <h1 class="text-lg font-bold text-pink-600 font-serif tracking-widest cursor-pointer" onclick="location.href='index.html'">♡ SECRET SELECTION ♡</h1>
+        <header class="py-8 border-b border-pink-100 text-center sticky top-0 bg-[#fff0f5] bg-opacity-90 backdrop-blur-md z-40">
+            <h1 class="text-3xl font-black text-pink-600 font-serif tracking-[0.3em] cursor-pointer" onclick="location.reload()">♡ SECRET SELECTION ♡</h1>
+            <p class="text-[10px] text-pink-300 mt-2 tracking-widest">厳選された同人作品をご紹介するレビューサイト</p>
         </header>
 
-        <div class="max-w-6xl mx-auto px-4 py-8 fade-in">
-            <div class="flex flex-col md:flex-row gap-8">
-                
+        <div class="max-w-6xl mx-auto px-4 py-10 fade-in">
+            <div class="flex flex-col md:flex-row gap-10">
                 <main class="flex-grow">
-                    <article class="bg-white rounded-3xl overflow-hidden shadow-sm border border-pink-100">
-                        <img src="https://via.placeholder.com/600x800/ffb6c1/ffffff?text=MANGA+IMAGE" class="w-full aspect-[3/4] object-cover">
-                        
-                        <div class="p-6 md:p-10">
-                            <div class="mb-6">
-                                <p class="text-sm text-pink-400 font-bold mb-1">著者：山田太郎 先生</p>
-                                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-800 leading-tight">ここに作品のタイトルが入ります</h2>
-                            </div>
-
-                            <div id="item-tags" class="flex flex-wrap gap-2 mb-8">
-                                <a href="index.html" class="bg-pink-50 text-pink-500 text-xs px-3 py-1.5 rounded-full border border-pink-100 hover:bg-pink-500 hover:text-white transition">#純愛</a>
-                                <a href="index.html" class="bg-pink-50 text-pink-500 text-xs px-3 py-1.5 rounded-full border border-pink-100 hover:bg-pink-500 hover:text-white transition">#学生</a>
-                                <a href="index.html" class="bg-pink-50 text-pink-500 text-xs px-3 py-1.5 rounded-full border border-pink-100 hover:bg-pink-500 hover:text-white transition">#フルカラー</a>
-                            </div>
-
-                            <div class="space-y-6 text-gray-600 leading-relaxed mb-10 pb-10 border-b border-pink-50">
-                                <h3 class="text-lg font-bold text-gray-800 flex items-center">
-                                    <span class="w-1.5 h-6 bg-pink-400 rounded-full mr-3"></span>作品紹介
-                                </h3>
-                                <p>
-                                    ここに作品のあらすじや紹介文を書きます。読者の興味を引くような魅力的な文章を心がけましょう。
-                                    （例：清楚な彼女が見せる意外な一面とは…？全編フルカラーでお届けする至高の純愛ストーリー。）
-                                </p>
-                            </div>
-
-                            <a href="https://www.dlsite.com/" target="_blank" class="btn-gradient block w-full text-white text-center py-5 rounded-2xl font-extrabold text-xl shadow-lg transition">
-                                ＼ この作品を今すぐチェック ／
-                            </a>
-                        </div>
-                    </article>
-
-                    <div class="mt-8 text-center">
-                        <a href="index.html" class="text-pink-400 font-bold hover:text-pink-600 transition flex items-center justify-center gap-1">
-                            <span>←</span> トップページに戻る
-                        </a>
-                    </div>
+                    <h2 class="text-xs font-bold text-gray-400 mb-6 tracking-widest uppercase">新着レビュー</h2>
+                    <div id="manga-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-8"></div>
                 </main>
 
-                <aside class="w-full md:w-80 shrink-0">
-                    <div class="space-y-8 sticky top-24">
-                        
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
-                            <h2 class="text-lg font-bold text-gray-700 mb-5 pb-2 border-b-2 border-pink-200 italic">🏆 人気ランキング</h2>
-                            
-                            <h3 class="text-[11px] font-extrabold text-pink-400 mb-3 tracking-tighter uppercase italic">Weekly Top 5</h3>
-                            <div id="ranking-list" class="space-y-4 mb-8"></div>
-                            
-                            <div class="pt-4 border-t border-dashed border-pink-100">
-                                <h3 class="text-[11px] font-extrabold text-pink-400 mb-3 tracking-widest italic">🌙 月間人気ランキング</h3>
-                                <div id="monthly-ranking-list" class="space-y-2"></div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-2xl p-5 shadow-sm border border-pink-100">
-                            <h2 class="text-lg font-bold text-gray-700 mb-4 text-sm">🔍 作品を探す</h2>
-                            <form action="index.html" method="get">
-                                <input type="text" name="tag" placeholder="キーワード検索..." 
-                                    class="w-full px-4 py-2 rounded-lg border-2 border-pink-100 text-sm mb-6 focus:outline-none focus:border-pink-300">
-                            </form>
-                            <h3 class="text-[10px] font-bold text-pink-400 mb-3 uppercase tracking-wider">Popular Tags</h3>
-                            <div id="tag-cloud" class="flex flex-wrap gap-2"></div>
-                        </div>
+                <aside class="w-full md:w-80 shrink-0 space-y-8">
+                    
+                    <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
+                        <h2 class="text-[11px] font-bold text-gray-400 mb-6 tracking-widest">今週の人気ランキング</h2>
+                        <div id="weekly-ranking" class="space-y-5"></div>
                     </div>
-                </aside>
 
+                    <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
+                        <h2 class="text-[11px] font-bold text-pink-300 mb-6 tracking-widest">月間人気ランキング</h2>
+                        <div id="monthly-list" class="space-y-3"></div>
+                    </div>
+
+                    <div class="bg-white rounded-[32px] p-6 shadow-sm border border-pink-50">
+                        <h2 class="text-[11px] font-bold text-gray-400 mb-4 tracking-widest">作品検索</h2>
+                        <input type="text" id="search-input" oninput="searchManga()" placeholder="キーワードを入力..." 
+                            class="w-full bg-gray-50 border border-pink-100 rounded-xl px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-pink-200 transition">
+                    </div>
+
+                    <div class="bg-white rounded-[32px] p-8 shadow-sm border border-pink-50">
+                        <h2 class="text-[11px] font-bold text-gray-400 mb-5 tracking-widest">タグで検索</h2>
+                        <div id="tag-cloud" class="flex flex-wrap gap-2"></div>
+                    </div>
+
+                </aside>
             </div>
         </div>
-
-        <footer class="py-10 text-center text-gray-400 text-xs border-t border-pink-100 mt-12 bg-white">
-            <p>© 2026 ShiChu4.</p>
-        </footer>
     </div>
 
     <script>
-        // サイドバー用のデータ（トップと共通）
-        const tags = ["純愛", "寝取られ", "巨乳", "人妻", "学生", "ファンタジー", "放課後", "OL", "メイド", "幼馴染", "義母", "義姉妹", "ギャル", "教師", "ツンデレ", "ハーレム", "逆バニー", "お嬢様", "スポーツ", "異世界", "同棲", "フルカラー"];
-        const weekly = [
-            { title: "純真な彼女との日常", img: "https://via.placeholder.com/300x420/ffb6c1?text=A" },
-            { title: "隣の奥様は誘惑する", img: "https://via.placeholder.com/300x420/ffc0cb?text=B" },
-            { title: "魔法の放課後", img: "https://via.placeholder.com/300x420/ff69b4?text=C" }
-        ];
-        const monthly = [
-            { title: "ずっと人気の定番名作" },
-            { title: "先月から話題のタイトル" },
-            { title: "不動のトップセラー作品" },
-            { title: "SNSで拡散された衝撃作" },
-            { title: "隠れた名作の再燃" }
+        const mangaList = [
+            { id: "d_722571", title: "隣の綺麗なお姉さん", tags: ["人妻", "巨乳", "誘惑"], img: "https://picsum.photos/seed/d722571/300/400" },
+            { id: "d_658585", title: "放課後の秘め事", tags: ["純愛", "学生", "清楚"], img: "https://picsum.photos/seed/m1/300/400" }
         ];
 
-        window.onload = () => {
-            // 年齢確認チェック
-            if (localStorage.getItem('age-verified-pink') !== 'true') {
-                alert("年齢確認が必要です。トップページへ戻ります。");
-                location.href = 'index.html';
+        function verifyAge() {
+            localStorage.setItem('ageVerified', 'true');
+            document.getElementById('age-gate').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+            renderAll();
+        }
+
+        function searchManga() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const filtered = mangaList.filter(m => 
+                m.title.toLowerCase().includes(query) || 
+                m.tags.some(t => t.toLowerCase().includes(query))
+            );
+            displayManga(filtered);
+        }
+
+        function filterByTag(tag) {
+            const filtered = tag === "すべて" ? mangaList : mangaList.filter(m => m.tags.includes(tag));
+            displayManga(filtered);
+            document.getElementById('search-input').value = ""; 
+        }
+
+        function displayManga(list) {
+            const grid = document.getElementById('manga-grid');
+            if (list.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10">見つかりませんでした</p>`;
                 return;
             }
-            
-            // 確認済みならコンテンツ表示
-            document.getElementById('main-content').classList.remove('hidden');
+            grid.innerHTML = list.map(m => `
+                <div class="manga-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl cursor-pointer border border-pink-50" onclick="location.href='item.html?id=${m.id}'">
+                    <img src="${m.img}" class="w-full aspect-[3/4] object-cover">
+                    <div class="p-5">
+                        <p class="text-[11px] font-bold text-gray-800 truncate mb-2">${m.title}</p>
+                        <div class="flex gap-2">${m.tags.slice(0,3).map(t => `<span class="text-[9px] text-pink-400">#${t}</span>`).join('')}</div>
+                    </div>
+                </div>`).join('');
+        }
 
-            // タグクラウド生成
-            const cloud = document.getElementById('tag-cloud');
-            tags.forEach(t => { 
-                cloud.innerHTML += `<a href="index.html" class="bg-white border border-pink-100 px-2 py-1 rounded text-[10px] hover:bg-pink-500 hover:text-white transition">#${t}</a>`; 
-            });
+        function renderAll() {
+            document.getElementById('weekly-ranking').innerHTML = mangaList.map((m, i) => `
+                <a href="item.html?id=${m.id}" class="flex items-center gap-4 group">
+                    <div class="relative w-12 h-16 shrink-0">
+                        <img src="${m.img}" class="w-full h-full object-cover rounded-xl">
+                        <span class="absolute -top-1 -left-1 w-6 h-6 rounded-full bg-white shadow text-[10px] flex items-center justify-center font-bold ${i<3?'rank-'+(i+1):''}">${i+1}</span>
+                    </div>
+                    <p class="text-[11px] font-bold leading-tight group-hover:text-pink-500 transition line-clamp-2">${m.title}</p>
+                </a>`).join('');
 
-            // 週間ランキング生成
-            const rankEl = document.getElementById('ranking-list');
-            weekly.forEach((m, i) => { 
-                const n = i + 1; 
-                rankEl.innerHTML += `
-                    <a href="#" class="flex items-center gap-3 group">
-                        <div class="relative w-10 h-12 shrink-0">
-                            <img src="${m.img}" class="w-full h-full object-cover rounded shadow-sm">
-                            <span class="absolute -top-1 -left-1 w-5 h-5 rounded-full bg-white shadow text-[10px] flex items-center justify-center font-bold ${n<=3?'rank-'+n:'text-gray-400'}">${n}</span>
-                        </div>
-                        <p class="text-[10px] font-bold leading-tight group-hover:text-pink-500 transition">${m.title}</p>
-                    </a>`; 
-            });
+            document.getElementById('monthly-list').innerHTML = mangaList.map((m, i) => `
+                <a href="item.html?id=${m.id}" class="flex items-center gap-3 py-1 group">
+                    <span class="text-[10px] font-mono text-pink-200">0${i+1}</span>
+                    <p class="text-[10px] text-gray-400 group-hover:text-pink-400 truncate">${m.title}</p>
+                </a>`).join('');
 
-            // 月間ランキング生成
-            const monEl = document.getElementById('monthly-ranking-list');
-            monthly.forEach((m, i) => { 
-                monEl.innerHTML += `
-                    <a href="#" class="flex items-center gap-2 py-0.5 group">
-                        <span class="text-[10px] font-mono text-pink-300">0${i+1}</span>
-                        <p class="text-[10px] text-gray-500 truncate group-hover:text-pink-500 transition">${m.title}</p>
-                    </a>`; 
-            });
+            const tags = ["すべて", "純愛", "人妻", "学生", "清楚", "巨乳", "誘惑"];
+            document.getElementById('tag-cloud').innerHTML = tags.map(t => 
+                `<button onclick="filterByTag('${t}')" class="bg-gray-50 border border-gray-100 px-2.5 py-1 rounded-lg text-[9px] text-gray-500 hover:bg-pink-500 hover:text-white transition-all">#${t}</button>`
+            ).join('');
+
+            displayManga(mangaList);
+        }
+
+        window.onload = () => {
+            if (localStorage.getItem('ageVerified') === 'true') {
+                document.getElementById('age-gate').classList.add('hidden');
+                document.getElementById('main-content').classList.remove('hidden');
+                renderAll();
+            }
         };
     </script>
 </body>
